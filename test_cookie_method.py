@@ -12,5 +12,5 @@ class TestCookieMethod:
 
         expected_cookie = 'hw_value'
         cookie = response.cookies.get('HomeWork')
-        assert cookie ==  expected_cookie, f'Actual cookie in the response is not correct'
+        assert cookie == expected_cookie, f'Actual cookie in the response is not correct'
 
