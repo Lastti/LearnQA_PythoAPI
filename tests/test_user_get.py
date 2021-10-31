@@ -5,6 +5,7 @@ from lib.assertions import Assertions
 class TestUserGet(BaseCase):
     def test_get_user_details_not_auth(self):
         response = MyRequests.get('/user/2')
+        print('first', response.text)
 
         Assertions.assert_json_has_key(response, 'username')
         Assertions.assert_json_has_not_key(response, 'email')
@@ -30,6 +31,23 @@ class TestUserGet(BaseCase):
         expected_fields = ['username', 'email', 'firstName', 'lastName']
 
         Assertions.assert_json_has_keys(response2, expected_fields)
+
+    def test_get_user_details_auth_as_other_user(self):
+        data = {
+            'email': 'vinkotov@example.com',
+            'password': '1234'
+        }
+
+        response1 = MyRequests.post('/user/login', data=data)
+
+        other_user_id = '15858'
+        response2 = MyRequests.get(f'/user/{other_user_id}')
+
+        Assertions.assert_json_has_key(response2, 'username')
+
+        excepted_fields = ['email', 'firstName', 'lastName']
+        Assertions.assert_json_has_not_keys(response2, excepted_fields)
+
 
 
 
