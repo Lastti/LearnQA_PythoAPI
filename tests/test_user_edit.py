@@ -1,9 +1,16 @@
 from lib.my_requests import MyRequests
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
+import allure
 
-
+@allure.epic('User creation cases')
 class TestUserEdit(BaseCase):
+
+    @allure.description('This test successfully edit user')
+    @allure.feature('Positive tests for Creation')
+    @allure.testcase('URL of test case', 'Name of link for test case')
+    @allure.severity('Critical')
+
     def test_edit_just_created_user(self):
         # REGISTER
         register_data = self.prepare_registration_data()
@@ -56,6 +63,10 @@ class TestUserEdit(BaseCase):
             'Wrong name of the user after edit'
         )
 
+    @allure.description('This test the impossibility of editing a user without auth')
+    @allure.feature('Negative tests for Creation')
+    @allure.testcase('URL of test case', 'Name of link for test case')
+    @allure.severity('Critical')
     def test_user_edit_without_auth(self):
         # REGISTER
         register_data = self.prepare_registration_data()
@@ -80,6 +91,10 @@ class TestUserEdit(BaseCase):
         Assertions.assert_code_status(response2, 400)
         Assertions.assert_response_text(response2, 'Auth token not supplied')
 
+    @allure.description('This test checks the impossibility of editing user being authorized under another')
+    @allure.feature('Negative tests for Creation')
+    @allure.testcase('URL of test case', 'Name of link for test case')
+    @allure.severity('Critical')
     def test_user_edit_auth_as_other_user(self):
         # REGISTER NEW USER
         register_data = self.prepare_registration_data()
@@ -139,6 +154,10 @@ class TestUserEdit(BaseCase):
             'Wrong name of the user after edit'
         )
 
+    @allure.description('This test checks the impossibility of editing user email for an invalid value')
+    @allure.feature('Negative tests for Creation')
+    @allure.testcase('URL of test case', 'Name of link for test case')
+    @allure.severity('Critical')
     def test_user_edit_to_wrong_email(self):
         # REGISTER
         register_data = self.prepare_registration_data()
@@ -180,6 +199,10 @@ class TestUserEdit(BaseCase):
         Assertions.assert_code_status(response3, 400)
         Assertions.assert_response_text(response3, 'Invalid email format')
 
+    @allure.description('This test checks the impossibility of editing first name for too short value')
+    @allure.feature('Negative tests for Creation')
+    @allure.testcase('URL of test case', 'Name of link for test case')
+    @allure.severity('Critical')
     def test_user_edit_to_short_first_name(self):
         # REGISTER
         register_data = self.prepare_registration_data()
